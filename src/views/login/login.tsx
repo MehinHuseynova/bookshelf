@@ -1,21 +1,20 @@
 import React, { useState } from 'react'
-import { Box, Button, InputAdornment, Snackbar, Typography } from '@material-ui/core'
+import { Box, Button, InputAdornment, Typography } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import LockIcon from '@material-ui/icons/Lock'
-import { Alert } from '@material-ui/lab'
 import { Field, Form, Formik } from 'formik'
 import { TextField } from 'formik-material-ui'
 import { useDispatch } from 'react-redux'
-import { useHistory, useLocation } from 'react-router-dom'
+import { useHistory } from 'react-router-dom'
 import { login } from '../../redux-slice/user-slice'
 import { useStyles } from './login.style'
 import { ValidationSchema } from './validation/login-validation-schema'
+import { Alerts } from './components/alert'
 
 export const LoginPage: React.FC = () => {
     const classes = useStyles()
     const history = useHistory()
     const [invalidCredentials, setinValidCredentials] = useState(false)
-    const { state } = useLocation<{ isNotAuthenticated: boolean }>();
     const dispatch = useDispatch()
 
     interface ValueTypes {
@@ -26,7 +25,7 @@ export const LoginPage: React.FC = () => {
         userName: '',
         password: ''
     }
-    const handleSubmit = (formData: ValueTypes, resetForm:any) => {
+    const handleSubmit = (formData: ValueTypes, resetForm: any) => {
 
         const { userName, password } = formData
         if (process.env.REACT_APP_USERNAME === userName && process.env.REACT_APP_PASSWORD === password) {
@@ -35,7 +34,7 @@ export const LoginPage: React.FC = () => {
             history.push('/shelf')
         }
         else {
-            
+
             setinValidCredentials(true)
         }
         resetForm()
@@ -45,7 +44,7 @@ export const LoginPage: React.FC = () => {
         <div className={classes.root}>
             <Box className={classes.container}>
                 <Typography variant="h4" align="center">Login</Typography>
-                <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={(formData,{resetForm}) => handleSubmit(formData,resetForm)}>
+                <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={(formData, { resetForm }) => handleSubmit(formData, resetForm)}>
                     {({ submitForm }) => {
                         return (
                             <Form className={classes.form}>
@@ -74,21 +73,7 @@ export const LoginPage: React.FC = () => {
                         )
                     }}
                 </Formik>
-                {invalidCredentials && <Alert severity="warning">
-                    Invalid credentials
-                </Alert>}
-                <Snackbar
-                    anchorOrigin={{
-                        vertical: 'bottom',
-                        horizontal: 'left',
-                    }}
-                    autoHideDuration={4000}
-                    open={state?.isNotAuthenticated}
-                >
-                    <Alert severity="warning">
-                        Please login to see  the page
-                    </Alert>
-                </Snackbar>
+                <Alerts {...{ invalidCredentials }} />
             </Box>
         </div>
     )
