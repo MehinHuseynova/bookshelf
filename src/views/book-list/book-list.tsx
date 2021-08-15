@@ -29,7 +29,6 @@ export const BookListPage: React.FC = () => {
             getBooks(setBooks, setLoading)
         }
         else {
-            alert('d')
             history.push({
                 pathname: '/login',
                 state: { isNotAuthenticated: true }

@@ -9,7 +9,6 @@ type AlertsProps = {
 
 export const Alerts: React.FC<AlertsProps> = ({ invalidCredentials }) => {
     const { state } = useLocation<{ isNotAuthenticated: boolean }>();
-    console.log(state)
     return (
         <div>
             {invalidCredentials && <Alert severity="warning">
