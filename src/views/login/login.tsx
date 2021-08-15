@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState,useEffect } from 'react'
 import { Box, Button, InputAdornment, Typography } from '@material-ui/core'
 import AccountCircleIcon from '@material-ui/icons/AccountCircle'
 import LockIcon from '@material-ui/icons/Lock'
@@ -41,7 +41,12 @@ export const LoginPage: React.FC = () => {
         }
 
     }
-
+useEffect(()=>{
+    const userInMemory = JSON.parse(localStorage.getItem('user') as any)
+    if(userInMemory){
+        history.push('/shelf')
+    }
+},[])
     return (
         <div className={classes.root}>
             <Box className={classes.container}>

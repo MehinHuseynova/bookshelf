@@ -1,4 +1,5 @@
 import { makeStyles } from '@material-ui/core/styles';
+import { url } from 'inspector';
 
 export const useStyles = makeStyles((theme) => {
     return {
@@ -7,10 +8,13 @@ export const useStyles = makeStyles((theme) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-          
+
         },
         container: {
             minWidth: 400,
+            background: 'white',
+            padding: '30px',
+            borderRadius: '8px'
         },
         form: {
             display: 'flex',
