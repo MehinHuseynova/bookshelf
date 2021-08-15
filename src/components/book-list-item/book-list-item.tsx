@@ -15,13 +15,14 @@ type BookProps = {
 
 export const BookListItem: React.FC<BookProps> = ({ book }) => {
     const classes = useStyles();
+    const imageUrl ="https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60"
     return (
         <div>
             <Card className={classes.root}>
                 <CardActionArea>
                     <CardMedia
                         className={classes.media}
-                        image={'https://images.unsplash.com/photo-1513475382585-d06e58bcb0e0?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MjR8fGJvb2t8ZW58MHwwfDB8fA%3D%3D&ixlib=rb-1.2.1&auto=format&fit=crop&w=600&q=60'}
+                        image={imageUrl}
                         title={book.title}
                     />
                     <CardContent>

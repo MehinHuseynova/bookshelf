@@ -26,7 +26,8 @@ export const LoginPage: React.FC = () => {
         userName: '',
         password: ''
     }
-    const handleSubmit = (formData: ValueTypes) => {
+    const handleSubmit = (formData: ValueTypes, resetForm:any) => {
+
         const { userName, password } = formData
         if (process.env.REACT_APP_USERNAME === userName && process.env.REACT_APP_PASSWORD === password) {
             dispatch(login(formData))
@@ -34,16 +35,18 @@ export const LoginPage: React.FC = () => {
             history.push('/shelf')
         }
         else {
+            
             setinValidCredentials(true)
         }
+        resetForm()
     }
 
     return (
         <div className={classes.root}>
             <Box className={classes.container}>
                 <Typography variant="h4" align="center">Login</Typography>
-                <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={(formData) => handleSubmit(formData)}>
-                    {({ submitForm, resetForm }) => {
+                <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={(formData,{resetForm}) => handleSubmit(formData,resetForm)}>
+                    {({ submitForm }) => {
                         return (
                             <Form className={classes.form}>
                                 <Field component={TextField} margin="normal" label="Username" fullWidth name="userName" variant="outlined"
@@ -62,9 +65,8 @@ export const LoginPage: React.FC = () => {
                                             </InputAdornment>
                                     }}
                                 />
-                                <Button onClick={async () => {
-                                    await submitForm()
-                                    resetForm()
+                                <Button onClick={() => {
+                                    submitForm()
                                 }} variant="contained" className={classes.loginBtn}>
                                     LOGIN
                                 </Button>

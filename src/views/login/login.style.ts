@@ -7,7 +7,6 @@ export const useStyles = makeStyles((theme) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            background:'#e4e5dc'
         },
         container: {
             minWidth: 400
