@@ -16,7 +16,7 @@ export const BookListPage: React.FC = () => {
     const [books, setBooks] = useState<BookTypes[]>([])
     const [loading, setLoading] = useState(true)
 
-    const Logout = (e:React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
+    const Logout = (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => {
         e.preventDefault()
         dispatch(logout())
         localStorage.clear()
@@ -25,17 +25,18 @@ export const BookListPage: React.FC = () => {
     useEffect(() => {
         const userInMemory = JSON.parse(localStorage.getItem('user') as any)
         if (userInMemory) {
-            dispatch(login(userInMemory))
+            dispatch((login(userInMemory)))
+            getBooks(setBooks, setLoading)
         }
         else {
             history.push({
                 pathname: '/login',
-                state: { isNotAuthentificated: true }
+                state: { isNotAuthenticated: true }
             })
         }
-        getBooks(setBooks, setLoading)
+
     }, [])
- 
+
     if (loading) {
         return (
             <div className={classes.progressBar}>
@@ -47,8 +48,8 @@ export const BookListPage: React.FC = () => {
     return (
         <div className={classes.root}>
             <Box display="flex" alignItems="center" justifyContent="space-between" my={2}>
-                <Typography variant='h5' align="center">Welcome, {user.userName}</Typography>
-                <Button onClick={(e) => Logout(e)} variant='outlined' color="primary">Logout</Button>
+                <Typography variant='h5' align="center">Welcome, {user?.userName}</Typography>
+                <Button onClick={(e) => Logout(e)} variant='outlined'>Logout</Button>
             </Box>
             <Grid container spacing={1}>
                 {books.map((book) => {

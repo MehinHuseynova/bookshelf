@@ -15,7 +15,7 @@ export const LoginPage: React.FC = () => {
     const classes = useStyles()
     const history = useHistory()
     const [invalidCredentials, setinValidCredentials] = useState(false)
-    const { state } = useLocation<{ isNotAuthentificated: boolean }>();
+    const { state } = useLocation<{ isNotAuthenticated: boolean }>();
     const dispatch = useDispatch()
 
     interface ValueTypes {
@@ -27,9 +27,9 @@ export const LoginPage: React.FC = () => {
         password: ''
     }
     const handleSubmit = (formData: ValueTypes) => {
-        dispatch(login(formData))
         const { userName, password } = formData
         if (process.env.REACT_APP_USERNAME === userName && process.env.REACT_APP_PASSWORD === password) {
+            dispatch(login(formData))
             localStorage.setItem('user', JSON.stringify(formData))
             history.push('/shelf')
         }
@@ -81,7 +81,7 @@ export const LoginPage: React.FC = () => {
                         horizontal: 'left',
                     }}
                     autoHideDuration={4000}
-                    open={state?.isNotAuthentificated}
+                    open={state?.isNotAuthenticated}
                 >
                     <Alert severity="warning">
                         Please login to see  the page

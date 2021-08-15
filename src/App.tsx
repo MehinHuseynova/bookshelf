@@ -10,7 +10,7 @@ const App: React.FC = () => {
         <Switch>
           <Route exact path="/login" component={LoginPage} />
           <Route exact path="/shelf" component={BookListPage} />
-          <Redirect to="login"/>
+          <Redirect to="/shelf"/>
         </Switch>
       </Router>
     </div>
