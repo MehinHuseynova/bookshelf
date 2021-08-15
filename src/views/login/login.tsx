@@ -25,26 +25,28 @@ export const LoginPage: React.FC = () => {
         userName: '',
         password: ''
     }
-    const handleSubmit = (formData: ValueTypes, resetForm: any) => {
+    const handleSubmit = (formData: ValueTypes, setSubmitting: (isSubmitting: boolean) => void
+    ) => {
 
         const { userName, password } = formData
         if (process.env.REACT_APP_USERNAME === userName && process.env.REACT_APP_PASSWORD === password) {
             dispatch(login(formData))
             localStorage.setItem('user', JSON.stringify(formData))
             history.push('/shelf')
+
         }
         else {
-
+            setSubmitting(false)
             setinValidCredentials(true)
         }
-        resetForm()
+
     }
 
     return (
         <div className={classes.root}>
             <Box className={classes.container}>
                 <Typography variant="h4" align="center">Login</Typography>
-                <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={(formData, { resetForm }) => handleSubmit(formData, resetForm)}>
+                <Formik initialValues={initialValues} validationSchema={ValidationSchema} onSubmit={(formData, { setSubmitting }) => handleSubmit(formData, setSubmitting)}>
                     {({ submitForm }) => {
                         return (
                             <Form className={classes.form}>
@@ -56,7 +58,7 @@ export const LoginPage: React.FC = () => {
                                             </InputAdornment>
                                     }}
                                 />
-                                <Field component={TextField} margin="normal" label="Password" fullWidth name="password" variant="outlined"
+                                <Field component={TextField} type="password" margin="normal" label="Password" fullWidth name="password" variant="outlined"
                                     InputProps={{
                                         startAdornment:
                                             <InputAdornment position="start">
